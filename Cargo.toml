@@ -1,0 +1,5 @@
+
+[workspace]
+members = ["modules/app", "modules/luxarise", "modules/luxarise_render", "modules/luxarise_window"]
+
+resolver = "3"
