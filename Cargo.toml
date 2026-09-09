@@ -1,5 +1,5 @@
 
 [workspace]
-members = ["luxarise", "luxarise_window", "luxarise_audio", "app", "luxarise_render"]
+members = ["crates/luxarise","crates/luxarise_binary", "crates/luxarise_render", "crates/luxarise_window"]
 
 resolver = "3"

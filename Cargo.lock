@@ -3,30 +3,19 @@
 version = 4
 
 [[package]]
-name = "app"
-version = "0.1.0"
-dependencies = [
- "luxarise",
-]
-
-[[package]]
-name = "bitflags"
-version = "2.13.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b588b76d00fde79687d7646a9b5bdf3cc0f655e0bbd080335a95d7e96f3587da"
-
-[[package]]
 name = "luxarise"
 version = "0.1.0"
 dependencies = [
- "luxarise_audio",
  "luxarise_render",
  "luxarise_window",
 ]
 
 [[package]]
-name = "luxarise_audio"
+name = "luxarise_binary"
 version = "0.1.0"
+dependencies = [
+ "luxarise",
+]
 
 [[package]]
 name = "luxarise_render"
@@ -36,7 +25,6 @@ version = "0.1.0"
 name = "luxarise_window"
 version = "0.1.0"
 dependencies = [
- "bitflags",
  "windows",
 ]
 

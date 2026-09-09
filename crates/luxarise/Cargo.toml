@@ -4,6 +4,5 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
-luxarise_audio = { version = "0.1.0", path = "../luxarise_audio" }
 luxarise_render = { version = "0.1.0", path = "../luxarise_render" }
 luxarise_window = { version = "0.1.0", path = "../luxarise_window" }
