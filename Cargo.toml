@@ -1,5 +1,0 @@
-
-[workspace]
-members = ["crates/luxarise","crates/luxarise_binary", "crates/luxarise_render", "crates/luxarise_window"]
-
-resolver = "3"

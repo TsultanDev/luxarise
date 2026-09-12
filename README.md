@@ -1,2 +1,1 @@
-# luwise-luxarise-window-system
-Luwise (Luxarise Window System) is window system.
+Luxarise is a game engine project that made with C++.
