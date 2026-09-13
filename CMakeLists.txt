@@ -1,10 +1,9 @@
 cmake_minimum_required(VERSION 3.28)
-project(luxarise LANGUAGES CXX)
+project(luxarise LANGUAGES C)
 
 # Menggunakan Standar C++23
-set(CMAKE_CXX_STANDARD 23)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_CXX_EXTENSIONS OFF)
+set(CMAKE_C_STANDARD 23)
+set(CMAKE_C_STANDARD_REQUIRED ON)
 
 # Wajib agar LSP (clangd / VS Code) bisa membaca path header & module
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
@@ -12,13 +11,7 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 # Menambahkan executable project
 add_executable(luxarise)
 
-# Konfigurasi C++23 Module Interface (.ixx / .cppm)
-target_sources(luxarise
-    PRIVATE
-        src/main.cc
-    PUBLIC
-        FILE_SET CXX_MODULES FILES
-            src/application.ixx
+target_include_directories(luxarise
+  PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include
+  PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src
 )
-
-
