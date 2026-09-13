@@ -1,17 +1,11 @@
-cmake_minimum_required(VERSION 3.28)
-project(luxarise LANGUAGES C)
+# Library statis LXWS
+add_library(LXWS STATIC
+  src/lxws/lxws.c
+)
 
-# Menggunakan Standar C++23
-set(CMAKE_C_STANDARD 23)
-set(CMAKE_C_STANDARD_REQUIRED ON)
-
-# Wajib agar LSP (clangd / VS Code) bisa membaca path header & module
-set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
-
-# Menambahkan executable project
-add_executable(luxarise)
-
-target_include_directories(luxarise
+target_include_directories(LXWS
   PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include
   PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src
 )
+
+target_link_libraries(LXWS PUBLIC user32)
