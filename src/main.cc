@@ -2,6 +2,12 @@
 import libr;
 
 int main(){
-    public_func();
+    auto window = create_window();
+
+    while(!window_should_close(window)){
+        
+    };
+
+    destroy_window(window);
     return 0;
 }

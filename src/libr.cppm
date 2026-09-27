@@ -5,10 +5,18 @@ module; // 1. Global Module Fragment
 #include <GLFW/glfw3.h>
 export module libr;
 
-void private_func(){
-    std::println("Hello ");
+export GLFWwindow* create_window(){
+    std::println("Window created");
+    glfwInit();
+    return glfwCreateWindow(800, 600, "My Window", nullptr, nullptr);
 }
-export void public_func(){
-    std::println("Export");
-    private_func();
+export void destroy_window(GLFWwindow* window){
+    std::println("Destroy Window");
+    glfwDestroyWindow(window);
+    glfwTerminate();
+}
+export bool window_should_close(GLFWwindow* window){
+    auto value = glfwWindowShouldClose(window);
+    glfwPollEvents();
+    return value;
 }
