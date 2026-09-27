@@ -1,11 +1,18 @@
-# Library statis LXWS
-add_library(LXWS STATIC
-  src/lxws/lxws.c
-)
+cmake_minimum_required(VERSION 3.28)
 
-target_include_directories(LXWS
-  PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include
-  PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src
-)
+project(MyModuleApp LANGUAGES CXX)
 
-target_link_libraries(LXWS PUBLIC user32)
+set(CMAKE_CXX_STANDARD 23)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+set(SRC_DIR src)
+
+add_executable(luxarise)
+
+target_sources(luxarise
+    PRIVATE
+        ${SRC_DIR}/main.cc
+    PUBLIC
+        FILE_SET CXX_MODULES FILES
+            ${SRC_DIR}/libr.cppm
+)
