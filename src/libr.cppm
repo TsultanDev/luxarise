@@ -2,7 +2,7 @@
 module; // 1. Global Module Fragment
 
 #include <print> // Include header biasa di dalam fragment
-
+#include <GLFW/glfw3.h>
 export module libr;
 
 void private_func(){

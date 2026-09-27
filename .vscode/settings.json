@@ -1,0 +1,7 @@
+{
+    "cmake.configureArgs": [
+        "-DCMAKE_TOOLCHAIN_FILE=${workspaceFolder}/build/build/Release/generators/conan_toolchain.cmake"
+    ],
+    "cmake.buildDirectory": "${workspaceFolder}/build/build/Release",
+    "C_Cpp.intelliSenseEngine": "disabled"
+}
