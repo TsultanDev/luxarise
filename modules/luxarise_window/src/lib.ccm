@@ -1,0 +1,2 @@
+export module luxarise.window;
+export import :Window;

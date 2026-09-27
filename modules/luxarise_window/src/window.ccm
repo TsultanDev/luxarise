@@ -1,0 +1,32 @@
+module;
+#include <string>
+#include <cstdint>
+#include <memory>
+#include <print>
+export module luxarise.window:Window;
+
+namespace luxarise::window{
+
+    class Window_S{
+        public:
+        Window_S(std::string title, std::uint32_t width, std::uint32_t height) 
+        : title(title), width(width), height(height)
+        {
+            std::println("Create window {}, {} x {}", title, width, height);
+        }
+        ~Window_S(){
+            std::println("Destroy window");
+        }
+        private:
+        std::string title;
+        std::uint32_t width;
+        std::uint32_t height;
+
+    };
+
+    export using Window = std::unique_ptr<Window_S>;
+
+    export inline Window createWindow(std::string title, std::uint32_t width, std::uint32_t height){
+        return std::make_unique<Window_S>(title, width, height);
+    }
+}
