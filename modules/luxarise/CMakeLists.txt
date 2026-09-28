@@ -7,4 +7,4 @@ target_sources(luxarise
         FILES "${CMAKE_CURRENT_SOURCE_DIR}/src/lib.ccm"
 )
 
-target_link_libraries(luxarise PRIVATE luxarise_window)
+target_link_libraries(luxarise PRIVATE luxarise_window luxarise_rhi)

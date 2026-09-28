@@ -1,0 +1,32 @@
+{
+  "version": 6,
+  "configurePresets": [
+    {
+      "name": "default",
+      "hidden": true,
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build/${presetName}",
+      "cacheVariables": {
+        "CMAKE_CXX_STANDARD": "23",
+        "CMAKE_CXX_STANDARD_REQUIRED": "ON",
+        "CMAKE_CXX_EXTENSIONS": "OFF",
+        "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
+      }
+    },
+    {
+      "name": "clang-debug",
+      "displayName": "Clang Debug (Ninja)",
+      "inherits": "default",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "CMAKE_CXX_COMPILER": "clang++"
+      }
+    }
+  ],
+  "buildPresets": [
+    {
+      "name": "clang-debug",
+      "configurePreset": "clang-debug"
+    }
+  ]
+}

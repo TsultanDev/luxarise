@@ -1,0 +1,17 @@
+module;
+#include <memory>
+
+export module luxarise.rhi:Adapter;
+
+namespace luxarise::rhi{
+    class Adapter_S{
+        public:
+        Adapter_S(){
+
+        }
+        ~Adapter_S(){
+
+        }
+    };
+    export using Adapter = std::unique_ptr<Adapter_S>;
+}

@@ -1,0 +1,46 @@
+module;
+#include <stdexcept>
+#include <memory>
+#if defined(_WIN64) || defined(_WIN32)
+#define UNICODE
+#define _UNICODE
+#define WIN32_LEAN_AND_MEAN
+#include <Windows.h>
+#endif
+export module luxarise.window:Event;
+import :Window;
+
+namespace luxarise::window{
+    class EventLoop_S{
+        public:
+        EventLoop_S(){
+            
+        }
+        ~EventLoop_S(){
+            
+        }
+
+        Window createWindow(std::string_view title, std::uint32_t width, std::uint32_t height) {
+            return Window(new Window_S(title, width, height));
+        }
+
+        bool running(){
+            MSG msg;
+            while (PeekMessageW(&msg, nullptr, 0, 0, PM_REMOVE)) {
+                TranslateMessage(&msg);
+                DispatchMessageW(&msg);
+                if (msg.message == WM_QUIT) {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        private:
+    };
+
+    export using EventLoop = std::unique_ptr<EventLoop_S>;
+    export inline EventLoop createNewEventLoop() {
+        return std::make_unique<EventLoop_S>();
+    }
+}

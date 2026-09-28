@@ -1,32 +1,95 @@
 module;
 #include <string>
 #include <cstdint>
+#include <string_view>
+#include <stdexcept>
 #include <memory>
-#include <print>
+#if defined(_WIN64) || defined(_WIN32)
+#define UNICODE
+#define _UNICODE
+#define WIN32_LEAN_AND_MEAN
+#include <Windows.h>
+#endif
 export module luxarise.window:Window;
 
 namespace luxarise::window{
-
     class Window_S{
         public:
-        Window_S(std::string title, std::uint32_t width, std::uint32_t height) 
-        : title(title), width(width), height(height)
+        Window_S(std::string_view title, std::uint32_t width, std::uint32_t height) 
         {
-            std::println("Create window {}, {} x {}", title, width, height);
+            HMODULE hmodule = GetModuleHandleW(nullptr);
+            const std::wstring_view CLASS_NAME = L"LuxariseWindow";
+            const std::wstring TITLE = toWideString(title);
+
+            WNDCLASSEXW wc{
+                .cbSize        = sizeof(WNDCLASSEXW),
+                .style         = CS_HREDRAW | CS_VREDRAW,
+                .lpfnWndProc   = HandleMsgSetup,
+                .hInstance     = hmodule,
+                .hIcon         = LoadIcon(nullptr, IDI_APPLICATION),
+                .hCursor       = LoadCursor(nullptr, IDC_ARROW),
+                .hbrBackground = reinterpret_cast<HBRUSH>(COLOR_WINDOW + 1),
+                .lpszClassName = CLASS_NAME.data(),
+                .hIconSm       = LoadIcon(nullptr, IDI_APPLICATION)
+            };
+
+            RegisterClassExW(&wc);
+
+            auto hwnd = CreateWindowExW(
+                WS_EX_CLIENTEDGE,
+                CLASS_NAME.data(),
+                TITLE.c_str(), // Menggunakan pointer UTF-16 yang valid
+                WS_OVERLAPPEDWINDOW,
+                CW_USEDEFAULT, CW_USEDEFAULT,
+                static_cast<int>(width), static_cast<int>(height),
+                nullptr,
+                nullptr,
+                hmodule,
+                this
+            );
+
+            if (!hwnd) {
+                throw std::runtime_error("Gagal membuat Win32 Window!");
+            }
+
+            ShowWindow(hwnd, SW_SHOW);
+            UpdateWindow(hwnd);
+
+            this->handle = hmodule;
+            this->window = hwnd;
         }
         ~Window_S(){
-            std::println("Destroy window");
+            if (this->window) {
+                DestroyWindow(this->window);
+            }
         }
         private:
-        std::string title;
-        std::uint32_t width;
-        std::uint32_t height;
+        static LRESULT CALLBACK HandleMsgSetup(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
+            if (uMsg == WM_DESTROY) {
+                PostQuitMessage(0);
+                return 0;
+            }
+            return DefWindowProcW(hwnd, uMsg, wParam, lParam);
+        }
+
+        static std::wstring toWideString(std::string_view str) {
+            if (str.empty()) return L"";
+            
+            int size_needed = MultiByteToWideChar(
+            CP_UTF8, 0, str.data(), static_cast<int>(str.size()), nullptr, 0
+            );
+        
+            std::wstring wstr(size_needed, 0);
+            MultiByteToWideChar(
+                CP_UTF8, 0, str.data(), static_cast<int>(str.size()), wstr.data(), size_needed
+            );
+        
+            return wstr;
+        }
+        HWND window;
+        HINSTANCE handle;
 
     };
 
     export using Window = std::unique_ptr<Window_S>;
-
-    export inline Window createWindow(std::string title, std::uint32_t width, std::uint32_t height){
-        return std::make_unique<Window_S>(title, width, height);
-    }
 }
