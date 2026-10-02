@@ -1,3 +1,0 @@
-export module luxarise.rhi;
-export import :Instance;
-export import :Adapter;

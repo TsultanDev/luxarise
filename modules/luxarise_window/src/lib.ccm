@@ -1,3 +1,0 @@
-export module luxarise.window;
-export import :Window;
-export import :Event;
