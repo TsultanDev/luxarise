@@ -1,0 +1,9 @@
+[package]
+name = "luxarise"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+luxrhi = { version = "0.1.0", path = "../luxrhi" }
+luxws = { version = "0.1.0", path = "../luxws" }
+tracing = "0.1.44"
